@@ -474,9 +474,9 @@ return (
     </ResponsiveContainer>
   </div>
 
-  <p style={{ marginTop: 8, opacity: 0.7 }}>
-    Avg intensity per day (0–5). Days with no entries are shown as gaps.
-  </p>
+<p style={{ marginTop: 8, opacity: 0.7 }}>
+  Avg intensity per day (0–5). Gaps indicate no recorded moods.
+</p>
 </section>
 
       <section style={{ marginTop: 24 }}>
