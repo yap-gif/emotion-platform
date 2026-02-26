@@ -1,8 +1,29 @@
-export default function Home() {
-  return (
-    <main style={{ padding: "40px", fontFamily: "sans-serif" }}>
-      <h1>Shi Xian Mood Platform</h1>
-      <p>Product-level emotional intelligence system</p>
-    </main>
+import { redirect } from "next/navigation"
+import { createClient } from "@supabase/supabase-js"
+import { cookies } from "next/headers"
+
+export default async function Home() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      global: {
+        headers: {
+          Authorization: `Bearer ${cookies().get("sb-access-token")?.value ?? ""}`,
+        },
+      },
+    }
   )
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // ⭐ 已登录 → dashboard
+  if (user) {
+    redirect("/dashboard")
+  }
+
+  // ⭐ 未登录 → login
+  redirect("/login")
 }
